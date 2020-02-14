@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bobo.items.dao.ItemsMapper">
+ <select id="selects" resultType="items">
+    select * from items 
+    
+    <where>
+       <if test="price1!=null and price1!=''">
+       
+         price >= #{price1}
+       
+       </if>
+       <if test="price2!=null and price2!=''">
+        and  price &lt;= #{price2}
+       
+       </if>
+       <if test="sales1!=null and sales1!=''">
+       
+        sales >=#{sales1}
+       
+       </if>
+       <if test="sales2!=null and sales2!=''">
+       
+        and  sales &lt;=#{sales2}
+       
+       </if>
+    
+    </where>
+    
+     <!-- 排序 -->
+       <if test="(orderName!=null and orderName!='') and (orderMethod!=null and orderMethod!='') ">
+       
+        order by ${orderName} ${orderMethod}
+       
+       </if>
+ 
+ 
+ </select>
+ 
+ <!-- 增加 -->
+ <insert id="insert">
+ 
+ insert into items(id,name,price,sales) values(#{id},#{name},#{price},#{sales})
+ 
+ </insert>
+
+</mapper>
